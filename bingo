@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'bundler/setup'
+
+Bundler.require
+
+require_relative './lib/bingo'
+
+opts = Slop.parse do |o|
+  o.integer '-n', '--count', 'number of cards to generate', default: 1
+  o.string '-o', '--filename', 'output filename', default: 'bingo.pdf'
+  o.integer '-r', '--rows', 'rows per card', default: 4
+  o.integer '-c', '--columns', 'columns per card', default: 4
+
+  o.on '-h', '--help' do
+    puts o
+    exit
+  end
+end
+
+Bingo.new(**opts.to_hash).generate!(open: true)
