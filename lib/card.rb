@@ -31,5 +31,15 @@ class Card
     '…works at Flux Federation',
     '…has been using Ruby for less than one year',
     '…does not have a Computer Science degree',
-  ] * 2
+    '…worked on Y2K',
+    '…actually likes the mac touch bar',
+    '…has worked on software overseas',
+    '…has worked in a startup',
+    '…owns bitcoin',
+    '…was impacted by leftpad',
+    '…was impacted by Heartbleed',
+    '…has taken a production server offline',
+    '…has used CVS',
+    '…can order coffee in Te Reo Māori'
+  ]
 end
