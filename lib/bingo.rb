@@ -18,8 +18,11 @@ class Bingo
       count.times do |page|
         pdf.start_new_page if page > 1
 
-        pdf.text 'FIND SOMEONE WHO…', style: :black, size: 24
+        pdf.text 'KIWI RUBY BINGO', style: :black, size: 24
         pdf.move_down 10
+        pdf.text 'See if you can find someone who fits each the categories below and get them to sign the box.'
+        pdf.text 'Try not to use the same person more than once!'
+        pdf.move_down 20
 
         pdf.bounding_box([0, pdf.cursor], width: pdf.bounds.width, height: pdf.cursor) do
           pdf.define_grid(rows: rows, columns: columns, gutter: 10)
