@@ -1,9 +1,10 @@
 require_relative './card'
 
 class Bingo
-  attr_reader :filename, :count, :rows, :columns
+  attr_reader :input, :filename, :count, :rows, :columns
 
-  def initialize(filename:, count:, rows:, columns:)
+  def initialize(input:, filename:, count:, rows:, columns:)
+    @input = input
     @filename = filename
     @count = count
     @rows = rows
@@ -26,18 +27,20 @@ class Bingo
 
         pdf.bounding_box([0, pdf.cursor], width: pdf.bounds.width, height: pdf.cursor) do
           pdf.define_grid(rows: rows, columns: columns, gutter: 10)
-          Card.new(rows: rows, columns: columns).boxes do |column, row, text|
-            pdf.grid(row, column).bounding_box do
-              pdf.stroke_bounds
-              pdf.text_box(
-                text,
-                at: [10, pdf.bounds.height - 10],
-                width: pdf.bounds.width - 20,
-                height: pdf.bounds.height - 20,
-                align: :center,
-                valign: :center
-              )
-            end
+          Card
+            .new(rows: rows, columns: columns, categories: categories)
+            .boxes do |column, row, text|
+              pdf.grid(row, column).bounding_box do
+                pdf.stroke_bounds
+                pdf.text_box(
+                  text,
+                  at: [10, pdf.bounds.height - 10],
+                  width: pdf.bounds.width - 20,
+                  height: pdf.bounds.height - 20,
+                  align: :center,
+                  valign: :center
+                )
+              end
           end
         end
       end
@@ -68,5 +71,9 @@ class Bingo
 
   def font_filename(name)
     "#{File.dirname(__FILE__)}/../fonts/#{name}.ttf"
+  end
+
+  def categories
+    @categories ||= File.readlines(input).map(&:chomp)
   end
 end

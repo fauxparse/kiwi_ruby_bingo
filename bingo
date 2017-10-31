@@ -9,6 +9,7 @@ require_relative './lib/bingo'
 
 opts = Slop.parse do |o|
   o.integer '-n', '--count', 'number of cards to generate', default: 1
+  o.string '-i', '--input', 'input filename', default: 'categories.txt'
   o.string '-o', '--filename', 'output filename', default: 'bingo.pdf'
   o.integer '-r', '--rows', 'rows per card', default: 4
   o.integer '-c', '--columns', 'columns per card', default: 4
